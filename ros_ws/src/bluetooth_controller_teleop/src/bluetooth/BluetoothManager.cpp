@@ -97,7 +97,7 @@ bool BluetoothManager::ProcessInput(const std::string &deviceAddress, const std:
     str2ba(deviceAddress.c_str(), &address.rc_bdaddr);
 
     status = connect(s, (sockaddr *)&address, sizeof(address));
-    if (status) {
+    if (status == -1) {
         return false;
     }
 
