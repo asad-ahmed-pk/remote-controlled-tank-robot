@@ -8,6 +8,7 @@
 #include <tuple>
 #include <vector>
 #include <string>
+#include <functional>
 
 class BluetoothManager
 {
@@ -20,6 +21,8 @@ public:
      * @param devices Tuple vector that will be set with the device info: 0: ID, 1: the name of the device
      */
     bool ScanDevices(std::vector<std::tuple<std::string, std::string>>& devices);
+
+    bool ProcessInput(const std::string& deviceAddress, const std::function<void(const std::string&)>& callback);
 
 };
 
