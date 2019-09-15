@@ -8,6 +8,7 @@
 #include <string>
 
 const std::string PRO_CONTROLLER_ADDRESS { "B8:27:EB:35:A1:F4" };
+const std::string PRO_CONTROLLER_ADDRESS_2 { "98:B6:E9:99:A4:A4" };
 
 // callback
 void BluetoothCallback(const std::string& data);
@@ -38,7 +39,7 @@ int main(int argc, char** argv)
 
     // read from pro controller
     std::cout << "\nConnecting to Pro Controller" << std::endl;
-    if (!manager.ProcessInput(PRO_CONTROLLER_ADDRESS, BluetoothCallback)) {
+    if (!manager.ProcessInput(PRO_CONTROLLER_ADDRESS_2, BluetoothCallback)) {
         std::cout << "\nCould not connect to pro controller" << std::endl;
         std::cerr << "Error Code: " << errno << std::endl;
         return 1;
