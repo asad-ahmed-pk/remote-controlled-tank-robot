@@ -33,15 +33,18 @@ int main(int argc, char** argv)
         }
     }
     else {
-        std::cout << "Failed to connect to bluetooth adapter" << std::endl;
+        std::cout << "\nFailed to connect to bluetooth adapter" << std::endl;
     }
 
     // read from pro controller
     std::cout << "\nConnecting to Pro Controller" << std::endl;
     if (!manager.ProcessInput(PRO_CONTROLLER_ADDRESS, BluetoothCallback)) {
-        std::cout << "Could not connect to pro controller" << std::endl;
+        std::cout << "\nCould not connect to pro controller" << std::endl;
+        std::cerr << "Error Code: " << errno << std::endl;
         return 1;
     }
+
+    std::cout << std::endl;
 
     return 0;
 }
