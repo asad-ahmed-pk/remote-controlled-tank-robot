@@ -6,6 +6,7 @@
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 #include <sys/socket.h>
+#include <poll.h>
 #include <unistd.h>
 
 #include <memory>
@@ -96,23 +97,35 @@ bool BluetoothManager::ProcessInput(const std::string &deviceAddress, const std:
     address.rc_channel = (uint8_t) 1;
     str2ba(deviceAddress.c_str(), &address.rc_bdaddr);
 
-    status = connect(s, (sockaddr *)&address, sizeof(address));
+    // bind address to socket
+    status = bind(s, (sockaddr *)&address, sizeof(address));
     if (status == -1) {
         return false;
     }
 
-    // run loop processing input (blocking)
+    // setup polling
+    pollfd pollFd;
+    pollFd.fd = s;
+    pollFd.events = POLLIN;
+
+    int timeout = (3 * 60 * 1000);
+    nfds_t nfds = 1;
+    int rc = 1;
+
+    // run loop processing input through polling
     std::string data;
-    len = read(s, buffer, sizeof(buffer));
-
-    while (len > 0)
+    while (rc > 0)
     {
-        if (len > 0) {
-            data = std::move(std::string(buffer));
-            callback(data);
+        rc = poll(&pollFd, nfds, timeout);
+        if (rc > 0)
+        {
+            // receive data
+            rc = recv(pollFd.fd, buffer, sizeof(buffer), 0);
+            if (rc > 0) {
+                data = std::move(std::string(buffer));
+                callback(data);
+            }
         }
-
-        len = read(s, buffer, sizeof(buffer));
     }
 
     // close and clean up
