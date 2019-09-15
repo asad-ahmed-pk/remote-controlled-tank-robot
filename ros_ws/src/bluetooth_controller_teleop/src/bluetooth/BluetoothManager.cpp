@@ -8,10 +8,11 @@
 #include <sys/socket.h>
 #include <poll.h>
 #include <unistd.h>
+#include <rfcomm.h>
 
 #include <memory>
 #include <string>
-#include <rfcomm.h>
+#include <iostream>
 
 #include "BluetoothManager.hpp"
 
@@ -113,17 +114,25 @@ bool BluetoothManager::ProcessInput(const std::string &deviceAddress, const std:
     int rc = 1;
 
     // run loop processing input through polling
+    std::cout << "\nPolling Bluetooth device: " << deviceAddress << std::endl;
+
     std::string data;
     while (rc > 0)
     {
         rc = poll(&pollFd, nfds, timeout);
         if (rc > 0)
         {
+            std::cout << "\nReceived data from poll" << std::endl;
+
             // receive data
             rc = recv(pollFd.fd, buffer, sizeof(buffer), 0);
             if (rc > 0) {
+                std::cout << "\nData read successfully" << std::endl;
                 data = std::move(std::string(buffer));
                 callback(data);
+            }
+            else {
+                std::cout << "\nUnable to read data" << std::endl;
             }
         }
     }
