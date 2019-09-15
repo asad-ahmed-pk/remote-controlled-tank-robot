@@ -20,9 +20,9 @@ public:
      * Perform a scan of the bluetooth devices in proximity of the host
      * @param devices Tuple vector that will be set with the device info: 0: ID, 1: the name of the device
      */
-    bool ScanDevices(std::vector<std::tuple<std::string, std::string>>& devices);
+    bool ScanDevices(std::vector<std::tuple<std::string, std::string>>& devices) const;
 
-    bool ProcessInput(const std::string& deviceAddress, const std::function<void(const std::string&)>& callback);
+    bool ProcessInput(const std::string& deviceAddress, const std::function<void(const std::string&)>& callback) const;
 
 };
 

@@ -32,7 +32,7 @@ BluetoothManager::~BluetoothManager() {
 }
 
 // Network scan
-bool BluetoothManager::ScanDevices(std::vector<std::tuple<std::string, std::string>>& devices)
+bool BluetoothManager::ScanDevices(std::vector<std::tuple<std::string, std::string>>& devices) const
 {
     std::unique_ptr<inquiry_info[]> inquiries;
 
@@ -81,7 +81,7 @@ bool BluetoothManager::ScanDevices(std::vector<std::tuple<std::string, std::stri
 }
 
 // Read input from bluetooth device and call callback whenever input is received
-bool BluetoothManager::ProcessInput(const std::string &deviceAddress, const std::function<void(const std::string&)> &callback)
+bool BluetoothManager::ProcessInput(const std::string &deviceAddress, const std::function<void(const std::string&)> &callback) const
 {
     sockaddr_rc address = { 0 };
     int s = 0, status = 0, len = 0;

@@ -10,6 +10,10 @@
 const std::string PRO_CONTROLLER_ADDRESS { "B8:27:EB:35:A1:F4" };
 const std::string PRO_CONTROLLER_ADDRESS_2 { "98:B6:E9:99:A4:A4" };
 
+// test functions
+void ScanTest(const BluetoothManager& manager);
+void InputTest(const BluetoothManager& manager);
+
 // callback
 void BluetoothCallback(const std::string& data);
 
@@ -17,6 +21,16 @@ int main(int argc, char** argv)
 {
     BluetoothManager manager;
 
+    InputTest(manager);
+
+    std::cout << std::endl;
+
+    return 0;
+}
+
+// Scan test
+void ScanTest(const BluetoothManager& manager)
+{
     std::vector<std::tuple<std::string, std::string>> devices;
 
     std::cout << "\nScanning for devices" << std::endl;
@@ -36,18 +50,16 @@ int main(int argc, char** argv)
     else {
         std::cout << "\nFailed to connect to bluetooth adapter" << std::endl;
     }
+}
 
+void InputTest(const BluetoothManager& manager)
+{
     // read from pro controller
     std::cout << "\nConnecting to Pro Controller" << std::endl;
     if (!manager.ProcessInput(PRO_CONTROLLER_ADDRESS_2, BluetoothCallback)) {
         std::cout << "\nCould not connect to pro controller" << std::endl;
         std::cerr << "Error Code: " << errno << std::endl;
-        return 1;
     }
-
-    std::cout << std::endl;
-
-    return 0;
 }
 
 void BluetoothCallback(const std::string& data)
