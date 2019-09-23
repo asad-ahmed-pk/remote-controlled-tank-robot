@@ -79,10 +79,10 @@ void JoystickInputPublisher::MapNintendoSwitchProButtons(const JoystickEvent &e,
     if (e.type == EVENT_AXIS)
     {
         if (e.number == 0) {
-            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_LEFT_STICK;
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_LEFT_STICK_X;
         }
         else if (e.number == 3) {
-            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_RIGHT_STICK;
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_RIGHT_STICK_X;
         }
         else if (e.number == 2) {
             msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_L2;
@@ -124,5 +124,69 @@ void JoystickInputPublisher::MapNintendoSwitchProButtons(const JoystickEvent &e,
 // Map PS3 controller
 void JoystickInputPublisher::MapPS3Buttons(const JoystickEvent &e, joystick_msgs::JoystickInputMsg &msg) const
 {
-
+    if (e.type == EVENT_AXIS)
+    {
+        // mapping PS3 axis event
+        if (e.number == 0) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_LEFT_STICK_X;
+        }
+        else if (e.number == 1) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_LEFT_STICK_Y;
+        }
+        else if (e.number == 3) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_RIGHT_STICK_X;
+        }
+        else if (e.number == 4) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_RIGHT_STICK_Y;
+        }
+        else if (e.number == 2) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R2;
+        }
+        else if (e.number == 5) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_L2;
+        }
+    }
+    else if (e.type == EVENT_BUTTON)
+    {
+        // mapping PS3 button event
+        if (e.number == 2) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_A;
+        }
+        else if (e.number == 1) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_B;
+        }
+        else if (e.number == 0) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_C;
+        }
+        else if (e.number == 3) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D;
+        }
+        else if (e.number == 9) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_START;
+        }
+        else if (e.number == 8) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_SELECT;
+        }
+        else if (e.number == 10) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_HOME;
+        }
+        else if (e.number == 5) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R1;
+        }
+        else if (e.number == 4) {
+            msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_L1;
+        }
+        else if (e.number == 13) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_UP;
+        }
+        else if (e.number == 14) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_DOWN;
+        }
+        else if (e.number == 15) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_LEFT;
+        }
+        else if (e.number == 16) {
+            msg.number = joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_RIGHT;
+        }
+    }
 }

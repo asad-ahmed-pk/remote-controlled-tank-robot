@@ -1,5 +1,5 @@
 # Controller config
 # type: 0 = nintendo switch | 1 = PS3
 controller:
-  type: 0
+  type: 1
   js_number: 0
