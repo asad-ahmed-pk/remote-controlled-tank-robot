@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/bluetooth_controller_teleop.iml" filepath="$PROJECT_DIR$/.idea/bluetooth_controller_teleop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/joystick_msgs.iml" filepath="$PROJECT_DIR$/.idea/joystick_msgs.iml" />
     </modules>
   </component>
 </project>
