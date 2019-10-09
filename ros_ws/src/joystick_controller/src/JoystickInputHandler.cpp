@@ -19,7 +19,7 @@ JoystickInputHandler::JoystickInputHandler(int joystickNumber) : m_JSFileDescrip
 {
     // open file descriptor for js number
     std::string filePath = JS_FILE_PATH + std::to_string(m_JoystickNumber);
-    m_JSFileDescriptor = open(filePath.c_str(), O_RDONLY);
+    m_JSFileDescriptor = open(filePath.c_str(), O_RDONLY | O_NONBLOCK);
 }
 
 JoystickInputHandler::~JoystickInputHandler() {}
