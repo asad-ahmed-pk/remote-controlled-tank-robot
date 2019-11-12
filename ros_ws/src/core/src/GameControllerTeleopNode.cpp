@@ -62,7 +62,7 @@ int main(int argc, char** argv)
     publisher = nodeHandle.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
     // the subscriber listening for the joystick messages
-    ros::Subscriber subscriber = nodeHandle.subscribe("/joystick_input", 1, JoystickInputCallback);
+    ros::Subscriber subscriber = nodeHandle.subscribe("/joystick_input", 10, JoystickInputCallback);
 
     ros::spin();
 
