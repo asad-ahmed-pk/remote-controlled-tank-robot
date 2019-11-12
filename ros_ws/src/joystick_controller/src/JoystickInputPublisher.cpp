@@ -43,7 +43,23 @@ void JoystickInputPublisher::ListenForJoystickInput() const
             ConstructMessageFromEvent(e, msg);
             m_Publisher.publish(msg);
         }
+        else {
+            PublishZeroInput();
+        }
     }
+    else {
+        PublishZeroInput();
+    }
+}
+
+// Publish zero input
+void JoystickInputPublisher::PublishZeroInput() const
+{
+    // TODO: remove this hack - just publish axis with zero value input
+    joystick_msgs::JoystickInputMsg msg;
+    msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_AXIS;
+    msg.value = 0;
+    msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R2;
 }
 
 // Message construction

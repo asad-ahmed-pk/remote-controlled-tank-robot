@@ -27,6 +27,7 @@ private:
     void ConstructMessageFromEvent(const JoystickEvent& e, joystick_msgs::JoystickInputMsg& msg) const;
     void MapNintendoSwitchProButtons(const JoystickEvent& e, joystick_msgs::JoystickInputMsg& msg) const;
     void MapPS3Buttons(const JoystickEvent& e, joystick_msgs::JoystickInputMsg& msg) const;
+    void PublishZeroInput() const;
 
 private:
     ros::NodeHandle m_NodeHandle;
