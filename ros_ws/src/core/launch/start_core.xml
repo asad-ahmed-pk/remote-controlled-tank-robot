@@ -3,6 +3,7 @@
     <!-- Joystick controller node -->
     <node name="joystick_controller" type="joystick_controller" pkg="joystick_controller">
         <rosparam command="load" file="$(find joystick_controller)/config/controller.yaml"/>
+        <param name ="/use_sim_time" value="true"/>
     </node>
 
     <!-- Game controller node -->

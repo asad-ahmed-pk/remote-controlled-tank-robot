@@ -61,6 +61,7 @@ void JoystickInputPublisher::PublishZeroInput() const
     msg.value = 0;
     msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R2;
 
+    ros::Duration(0.5).sleep();
     m_Publisher.publish(msg);
 }
 
