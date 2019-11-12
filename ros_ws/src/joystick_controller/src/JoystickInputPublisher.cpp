@@ -60,6 +60,8 @@ void JoystickInputPublisher::PublishZeroInput() const
     msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_AXIS;
     msg.value = 0;
     msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R2;
+
+    m_Publisher.publish(msg);
 }
 
 // Message construction
