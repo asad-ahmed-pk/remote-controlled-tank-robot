@@ -15,7 +15,41 @@ ros::Publisher publisher;
 // joystick input callback
 void JoystickInputCallback(const joystick_msgs::JoystickInputMsg& msg)
 {
-    ROS_INFO("Joystick Message: %d", msg.value);
+    int x = 0;
+    int z = 0;
+
+    // D-Pad controls
+    if (msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_BUTTON)
+    {
+        switch (msg.number)
+        {
+            case joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_UP:
+                z = 1;
+                break;
+
+            case joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_DOWN:
+                z = -1;
+                break;
+
+            case joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_LEFT:
+                x = -1;
+                break;
+
+            case joystick_msgs::JoystickInputMsg::BUTTON_TYPE_D_PAD_RIGHT:
+                x = 1;
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    // publish the cmd_vel
+    geometry_msgs::Twist vel;
+    vel.linear.x = x;
+    vel.linear.z = z;
+
+    publisher.publish(vel);
 }
 
 int main(int argc, char** argv)
