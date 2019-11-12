@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Joystick controller node -->
+    <node name="joystick_controller" type="joystick_controller" pkg="joystick_controller">
+        <rosparam command="load" file="$(find joystick_controller)/config/controller.yaml"/>
+    </node>
+
+    <!-- Game controller node -->
+    <node name="GameControllerTeleopNode" pkg="core" type="GameControllerTeleopNode" output="screen"/>
+
+    <!-- Motor control node -->
+
+</launch>

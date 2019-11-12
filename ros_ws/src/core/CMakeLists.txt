@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   joystick_controller
+  joystick_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -106,9 +107,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
+INCLUDE_DIRS include
 #  LIBRARIES core
-   CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs joystick_controller
+   CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs joystick_controller joystick_msgs
 #  DEPENDS system_lib
 )
 
@@ -136,7 +137,8 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/core_node.cpp)
+add_executable(GameControllerTeleopNode src/GameControllerTeleopNode.cpp)
+target_link_libraries(GameControllerTeleopNode ${catkin_LIBRARIES})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
