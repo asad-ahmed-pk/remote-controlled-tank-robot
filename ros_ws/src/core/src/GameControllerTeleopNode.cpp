@@ -15,7 +15,7 @@ ros::Publisher publisher;
 // joystick input callback
 void JoystickInputCallback(const joystick_msgs::JoystickInputMsg& msg)
 {
-
+    ROS_INFO("Joystick Message: %d", msg.value);
 }
 
 int main(int argc, char** argv)
