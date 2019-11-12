@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   joystick_controller
   joystick_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
