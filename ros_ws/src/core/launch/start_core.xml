@@ -9,5 +9,5 @@
     <node name="GameControllerTeleopNode" pkg="core" type="GameControllerTeleopNode" output="screen"/>
 
     <!-- Motor control node -->
-
+	<node name="MotorControl" pkg="core" type="motor_control.py"/>
 </launch>

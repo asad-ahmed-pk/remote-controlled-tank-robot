@@ -5,6 +5,8 @@
 
 import RPi.GPIO as GPIO
 import rospy
+import sys
+import signal
        
 from geometry_msgs.msg import Twist
 from time import sleep
@@ -18,6 +20,11 @@ in4 = 27
 # Enable pins
 enb = 22
 en = 25
+
+# Signal for ROS SIGINT
+def signal_handler(sig, frame):
+    GPIO.cleanup()
+    sys.exit(0)
 
 def setup_gpio():
     in_pins = [in1, in2, in3, in4]
@@ -42,6 +49,13 @@ def setup_gpio():
 
     p.start(25)
     p2.start(25)
+    
+# Stop all motors
+def motor_stop():
+    GPIO.output(in1,GPIO.LOW)
+    GPIO.output(in2,GPIO.LOW)
+    GPIO.output(in3,GPIO.LOW)
+    GPIO.output(in4,GPIO.LOW)
     
 # Motor control with x (left/right), z(forward/back)
 def drive_motor(x, z):
@@ -71,26 +85,31 @@ def drive_motor(x, z):
         GPIO.output(in4,GPIO.LOW)
     else:
         # stopped
-        GPIO.output(in1,GPIO.LOW)
-        GPIO.output(in2,GPIO.LOW)
-        GPIO.output(in3,GPIO.LOW)
-        GPIO.output(in4,GPIO.LOW)
+        motor_stop()
         
 
 # ROS subscriber callback
 def process_twist(twist):
     x = twist.linear.x
     z = twist.linear.z
-    print(f"Input: {x}, {z}")
     drive_motor(x, z)
     
 # ROS main node init
 def run_node():
-    setup_gpio()
-    rospy.init_node('motor_control')
-    rospy.Subscriber('/cmd_vel', Twist, process_twist)
-    rospy.spin()
-    
+    try:
+        setup_gpio()
+        
+        signal.signal(signal.SIGINT, signal_handler)
+        
+        rospy.init_node('motor_control')
+        rospy.Subscriber('/cmd_vel', Twist, process_twist)
+        rospy.spin()
+    except (KeyboardInterrupt, SystemExit):
+        GPIO.cleanup()
+        sys.exit(0)
+    except:
+        GPIO.cleanup()
+            
 
 if __name__ == '__main__':
     run_node()
