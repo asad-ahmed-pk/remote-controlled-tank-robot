@@ -17,8 +17,18 @@ void JoystickInputCallback(const joystick_msgs::JoystickInputMsg& msg)
 {
     int x = 0;
     int z = 0;
+    
+    // Emergency stop button
+    if (msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_BUTTON)
+    {
+        if (msg.number == joystick_msgs::JoystickInputMsg::BUTTON_TYPE_C) {
+            x = 0;
+            z = 0;
+        }
+    }
 
     // D-Pad controls
+    /*
     if (msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_BUTTON)
     {
         switch (msg.number)
@@ -43,6 +53,24 @@ void JoystickInputCallback(const joystick_msgs::JoystickInputMsg& msg)
                 break;
         }
     }
+    */
+    // Axis controls
+    else if (msg.input_type == joystick_msgs::JoystickInputMsg::INPUT_TYPE_AXIS)
+    {
+        switch (msg.number)
+        {
+            case joystick_msgs::JoystickInputMsg::AXIS_TYPE_LEFT_STICK_Y:
+                z = -1 * msg.value;
+                x = 0;
+                break;
+                
+            case joystick_msgs::JoystickInputMsg::AXIS_TYPE_RIGHT_STICK_X:
+                x = -1 * msg.value;
+                z = 0;
+                break;
+        }
+    }
+         
 
     // publish the cmd_vel
     geometry_msgs::Twist vel;

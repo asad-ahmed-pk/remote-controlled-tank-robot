@@ -42,13 +42,14 @@ void JoystickInputPublisher::ListenForJoystickInput() const
         if (e.type != EVENT_OTHER) {
             ConstructMessageFromEvent(e, msg);
             m_Publisher.publish(msg);
+            //ros::Duration(0.5).sleep();
         }
         else {
-            PublishZeroInput();
+            //PublishZeroInput();
         }
     }
     else {
-        PublishZeroInput();
+        //PublishZeroInput();
     }
 }
 
@@ -61,7 +62,6 @@ void JoystickInputPublisher::PublishZeroInput() const
     msg.value = 0;
     msg.number = joystick_msgs::JoystickInputMsg::AXIS_TYPE_TRIGGER_R2;
 
-    ros::Duration(0.5).sleep();
     m_Publisher.publish(msg);
 }
 
